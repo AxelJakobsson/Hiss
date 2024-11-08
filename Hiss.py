@@ -1,6 +1,5 @@
-import pyinputplus as pyip
+import pyinputplus as pyip # pip install pyinputplus
 import random
-## a
 
 print ("test")
 totalFloors = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -24,7 +23,7 @@ print(f"The elevator is going to {targetFloors[0]}")
 
 
 while True: # Someone getting on the elevator
-    onFloor = random.randint(1,10) # What floor they are on
+    onFloor = random.randint(1,10) # Generate a random number for the npc to be at
     
     totalFloorsCopy = totalFloors # Make sure they don't choose to go to the same floor that they are already on
     totalFloorsCopy.remove(onFloor) # ^
@@ -38,31 +37,27 @@ while True: # Someone getting on the elevator
     else: 
         newDirection = 'DOWN'
         
-    print(f"A person on floor {onFloor} wants to go to floor {goToFloor}. Their direction = {newDirection}, your direction = {direction}")
-    break
+    print(f"A person on floor {onFloor} wants to go  to floor {goToFloor}. Their direction = {newDirection}, your direction = {direction}")
+    break # To stop it from creating multiple npcs 
     
-if (onFloor >= currentFloor and newDirection == direction): # 
+if (onFloor >= currentFloor and newDirection == direction):
     pickUpFloor.append(onFloor)
     targetFloors.append(goToFloor)
-    print(f"pickup floors + {pickUpFloor}")
-print(max(targetFloors))
     
-    
-for i in range (max(targetFloors)):
+while targetFloors or pickUpFloor:
     print(f"The elevator is currently on floor {currentFloor}")
     
-    # print(targetFloors)
-    print(f"pickup floors + {pickUpFloor}")
-    if (currentFloor == min(targetFloors)):
+    if currentFloor in targetFloors:
         print(f"Elevator reached floor {currentFloor}. Staying to let passengers out.")
         targetFloors.remove(currentFloor)
-        
-    elif (currentFloor != min(targetFloors) and currentFloor != min(pickUpFloor)): 
-        print("empty floor")
-    elif (currentFloor == min(pickUpFloor)):
+
+    if currentFloor in pickUpFloor:
         print(f"Elevator reached floor {currentFloor}. Staying to let passengers in.")
         pickUpFloor.remove(currentFloor)
-    
-    currentFloor += 1
-print(f"target floors + {targetFloors}")
-print(f"pickup floors + {pickUpFloor}")
+
+    if direction == 'UP':
+        currentFloor += 1
+    else:
+        currentFloor -= 1
+
+print("All passengers have reached their destinations.")
